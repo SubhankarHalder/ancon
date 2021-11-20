@@ -33,6 +33,8 @@ def class_values(names_file):
     with open(names_file) as f:
         for index, name in f:
             class_dict[name] = index
+    if not class_dict:
+        raise ValueError("Names file is empty.")
     return class_dict
 
 def check_input_format(source_format, target_format):
@@ -66,4 +68,5 @@ def check_names_file_req(source_format, target_format, names_file):
     if source_format in names_file_req:
         if target_format in names_file_req[source_format]:
             if not names_file:
-                raise ValueError("Names File not found in function argument")
+                raise ValueError("Names File not found in the function argument.")
+
