@@ -44,7 +44,7 @@ def extract_lmjrect_pascalvoc(label_dict):
               [x_min, y_min, x_max, y_max]
     """
     x_min = label_dict["points"][0][0]
-    y_min = label_dict["points"][0][0]
+    y_min = label_dict["points"][0][1]
     x_max = label_dict["points"][1][0]
     y_max = label_dict["points"][1][1]
     return [x_min, y_min, x_max, y_max]
@@ -88,9 +88,9 @@ def file_lmjrect_yolo(src_file, dest_dir, **kwargs):
     converted = statistics["converted"]
     skip = statistics["skipped"]
     if converted == 0:
-        print("No Rectangle Type labels found. Created 1 empty file")
+        print("No Rectangle LabelMe labels found. Created 1 empty file")
     if skip > 0:
-        print(f"Skipping {skip} labels. LabelMe Rectangle Type not found")
+        print(f"Skipped {skip} labels. LabelMe Rectangle Type not found")
 
 
 def dir_lmjrect_yolo(src_dir, dest_dir, **kwargs):
@@ -98,9 +98,13 @@ def dir_lmjrect_yolo(src_dir, dest_dir, **kwargs):
     empty_file = 0
     skip = 0
     for file in tqdm(list(Path(src_dir).iterdir())):
-        if file.suffix() == ".json":
+        if file.suffix == ".json":
             temp_stats = lmjrect_yolo(file, dest_dir, class_dict)
             if temp_stats["converted"] == 0:
                 empty_file += 1
             if temp_stats["skipped"] == 0:
                 skip += 1
+    if empty_file > 0:
+        print(f"Created {empty_file} empty file(s). Rectangle Type not found")
+    if skip > 0:
+        print(f"Skipped {skip} labels. LabelMe Rectangle Type not found")

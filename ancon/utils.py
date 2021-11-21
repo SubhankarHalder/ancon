@@ -1,4 +1,4 @@
-""" 
+"""
 Helper functions
 """
 import json
@@ -12,7 +12,7 @@ def json_extract(json_path):
         json_path (str): Path to JSON file
 
     Returns:
-        data (dict): Dictionary containing JSON information 
+        data (dict): Dictionary containing JSON information
     """
     with open(json_path) as f:
         data = json.load(f)
@@ -44,7 +44,7 @@ def check_input_format(source_format, target_format):
     """Check if allowed source/target formats have been provided
 
     Args:
-        source_format (str): Source Format 
+        source_format (str): Source Format
         target_format (str): Target Format
 
     Raises:
@@ -65,11 +65,10 @@ def check_names_file_req(source_format, target_format, names_file):
         target_format (str): Target Format
 
     Raises:
-        ValueError: If Names file is required 
+        ValueError: If Names file is required
                     and user hasn't passed that as a function argument
     """
     if source_format in names_file_req:
         if target_format in names_file_req[source_format]:
             if not names_file:
-                raise ValueError("Names File not found in the function argument")
-
+                raise ValueError("Names File required as function argument")
