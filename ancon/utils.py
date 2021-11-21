@@ -4,6 +4,7 @@ Helper functions
 import json
 from config import allowed_formats, names_file_req
 
+
 def json_extract(json_path):
     """Converts JSON file to Python Dict
 
@@ -16,6 +17,7 @@ def json_extract(json_path):
     with open(json_path) as f:
         data = json.load(f)
         return data
+
 
 def class_values(names_file):
     """Get integer value of classes from .names file
@@ -37,6 +39,7 @@ def class_values(names_file):
         raise ValueError("Names file is empty.")
     return class_dict
 
+
 def check_input_format(source_format, target_format):
     """Check if allowed source/target formats have been provided
 
@@ -48,14 +51,14 @@ def check_input_format(source_format, target_format):
         ValueError: If source format is wrong or not currently supported
         ValueError: If target format is wrong or not currently supported
     """
-    if not source_format in allowed_formats:
-        raise ValueError("Source Format is either wrong or not currently supported.")
-    
-    if not target_format in allowed_formats[source_format]:
-        raise ValueError("Target Format is either wrong or not currently supported.")
+    if source_format not in allowed_formats:
+        raise ValueError("Source Format is not currently supported")
+    if target_format not in allowed_formats[source_format]:
+        raise ValueError("Target Format is not currently supported")
+
 
 def check_names_file_req(source_format, target_format, names_file):
-    """If Names file is required, user should have passed that as a function argument
+    """Checks if names file is provided for given source and target formats
 
     Args:
         source_format (str): Source Format
@@ -68,5 +71,5 @@ def check_names_file_req(source_format, target_format, names_file):
     if source_format in names_file_req:
         if target_format in names_file_req[source_format]:
             if not names_file:
-                raise ValueError("Names File not found in the function argument.")
+                raise ValueError("Names File not found in the function argument")
 

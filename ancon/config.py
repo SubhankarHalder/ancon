@@ -1,7 +1,7 @@
-""" 
+"""
 Configuration Variables
 """
-# Source format maps to a set containing target formats 
+# Src fmt maps to a set containing tgt fmts
 allowed_formats = {'lmj-rect': {'yolo'}}
-# Names file required for source(key) and target(set) formats 
+# Names file required for src(key) and tgt(set) fmts
 names_file_req = {'lmj-rect': {'yolo'}}
