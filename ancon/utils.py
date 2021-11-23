@@ -5,7 +5,7 @@ import json
 
 
 def json_extract(json_path):
-    """Converts JSON file to Python Dict
+    """Convert JSON file to Python Dict
 
     Args:
         json_path (str): Path to JSON file
@@ -40,7 +40,7 @@ def class_values(names_file):
 
 
 def lmj_pascalvoc(matrix):
-    """Extracts box coordinates from lmjson labels to pascalvoc
+    """Extract box coordinates from lmjson labels to pascalvoc
 
     Args:
         label_dict (list of lists): lmjson points matrix
@@ -49,6 +49,12 @@ def lmj_pascalvoc(matrix):
         list: Box coordinates in Pascalvoc
               [x_min, y_min, x_max, y_max]
     """
+    min_column = [min(column) for column in zip(*matrix)]
+    max_column = [max(column) for column in zip(*matrix)]
+    x_min = min_column[0]
+    y_min = min_column[1]
+    x_max = max_column[0]
+    y_max = max_column[1]
     return [x_min, y_min, x_max, y_max]
 
 

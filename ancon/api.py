@@ -5,8 +5,8 @@ from core import file_lmj_yolo, dir_lmj_yolo
 
 
 def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
-                 names_file=None, img_file=None):
-    """Converts annotation file from one format to another
+                 names_file=None):
+    """Convert annotation file from one format to another
 
     Args:
         src_fmt (str): Source annotation format type
@@ -16,20 +16,18 @@ def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
                                   the new annotation file would be saved
         names_file (str): Path to names file that contains list of classes.
                           Required for certain conversions. Defaults to None.
-        img_file (str): Path to image file. Required for certain conversions.
-                        Defaults to None.
     """
-    optional_args = {"names": names_file, "img": img_file}
+    keyword_args = {"names": names_file}
     file_dispatcher = {'lmj': {'yolo': file_lmj_yolo}}
     try:
-        file_dispatcher[src_fmt][tgt_fmt](src_file, dest_dir, optional_args)
+        file_dispatcher[src_fmt][tgt_fmt](src_file, dest_dir, keyword_args)
     except KeyError:
         raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
 
 
 def convert_folder(src_fmt, tgt_fmt, src_dir,
-                   dest_dir, names_file=None, img_dir=None):
-    """Converts annotation files in a folder from one format to another
+                   dest_dir, names_file=None):
+    """Convert annotation files in a folder from one format to another
 
     Args:
         src_fmt (str): Source annotation format type
@@ -39,12 +37,10 @@ def convert_folder(src_fmt, tgt_fmt, src_dir,
                                   the new annotation files would be saved
         names_file (str): Path to names file that contains list of classes.
                           Required for certain conversions. Defaults to None.
-        img_dir (str): Path to folder containing image files.
-                        Required for certain conversions. Defaults to None.
     """
-    optional_args = {"names": names_file, "img": img_dir}
+    keyword_args = {"names": names_file}
     dir_dispatcher = {'lmj': {'yolo': dir_lmj_yolo}}
     try:
-        dir_dispatcher[src_fmt][tgt_fmt](src_dir, dest_dir, optional_args)
+        dir_dispatcher[src_fmt][tgt_fmt](src_dir, dest_dir, keyword_args)
     except KeyError:
         raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
