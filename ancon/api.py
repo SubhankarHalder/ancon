@@ -1,8 +1,7 @@
 """
 API Endpoints
 """
-from utils import check_input_format, check_names_file_req
-from core import file_lmjrect_yolo, dir_lmjrect_yolo
+from core import file_lmj_yolo, dir_lmj_yolo
 
 
 def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
@@ -20,11 +19,12 @@ def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
         img_file (str): Path to image file. Required for certain conversions.
                         Defaults to None.
     """
-    check_input_format(src_fmt, tgt_fmt)
-    check_names_file_req(src_fmt, tgt_fmt, names_file)
     optional_args = {"names": names_file, "img": img_file}
-    file_dispatcher = {'lmj-rect': {'yolo': file_lmjrect_yolo}}
-    file_dispatcher[src_fmt][tgt_fmt](src_file, dest_dir, optional_args)
+    file_dispatcher = {'lmj': {'yolo': file_lmj_yolo}}
+    try:
+        file_dispatcher[src_fmt][tgt_fmt](src_file, dest_dir, optional_args)
+    except KeyError:
+        raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
 
 
 def convert_folder(src_fmt, tgt_fmt, src_dir,
@@ -42,8 +42,9 @@ def convert_folder(src_fmt, tgt_fmt, src_dir,
         img_dir (str): Path to folder containing image files.
                         Required for certain conversions. Defaults to None.
     """
-    check_input_format(src_fmt, tgt_fmt)
-    check_names_file_req(src_fmt, tgt_fmt, names_file)
     optional_args = {"names": names_file, "img": img_dir}
-    dir_dispatcher = {'lmj-rect': {'yolo': dir_lmjrect_yolo}}
-    dir_dispatcher[src_fmt][tgt_fmt](src_dir, dest_dir, optional_args)
+    dir_dispatcher = {'lmj': {'yolo': dir_lmj_yolo}}
+    try:
+        dir_dispatcher[src_fmt][tgt_fmt](src_dir, dest_dir, optional_args)
+    except KeyError:
+        raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
