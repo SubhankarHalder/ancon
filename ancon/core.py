@@ -51,11 +51,28 @@ def preproces_lmj(dest_dir, **kwargs):
 
 
 def file_lmj_yolo(src_file, dest_dir, **kwargs):
+    """Serves as a wrapper to lmj_yolo function
+       for a single annotation file
+
+    Args:
+        src_file (str): Path to the annotation file
+        dest_dir (str): Output folder where converted
+                        annotation file would be dumped
+    """
     class_dict = preproces_lmj(dest_dir, kwargs)
     lmj_yolo(src_file, dest_dir, class_dict)
 
 
 def dir_lmj_yolo(src_dir, dest_dir, **kwargs):
+    """Serves as a wrapper to lmj_yolo function
+       for a folder of annotation files
+
+    Args:
+        src_dir (str): Path to folder containing
+                       annotation files
+        dest_dir (str): Output folder where converted
+                           annotation file would be dumped
+    """
     class_dict = preproces_lmj(dest_dir, kwargs)
     for file in tqdm(list(Path(src_dir).iterdir())):
         if file.suffix == ".json":
