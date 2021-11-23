@@ -1,3 +1,7 @@
-<img align="left" width="100" height="100" src="assets/icon.svg">
+<p align "center">
+<img width="600" height="600" src="assets/icon.svg">
+</p>
+<p align "center>
 # ancon
+</p>
 Annotation Converter for Computer Vision
