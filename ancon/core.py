@@ -8,6 +8,13 @@ from tqdm import tqdm
 
 
 def lmj_yolo(json_file_path, target_dir, class_dict):
+    """Converts a single LabelMe JSON to YOLO text file
+
+    Args:
+        json_file_path (Union[str, PosixPath]): Path to LMJSON file
+        target_dir (str): Path to target directory
+        class_dict (dict): Hash Map containing class names to integer mapping
+    """
     json_dict = json_extract(json_file_path)
     img_width = json_dict["imageWidth"]
     img_height = json_dict["imageHeight"]
@@ -27,6 +34,16 @@ def lmj_yolo(json_file_path, target_dir, class_dict):
 
 
 def preproces_lmj(dest_dir, **kwargs):
+    """(1) Creates destination directory
+       (2) Gets class labels to integer mapping
+
+    Args:
+        dest_dir (str): Output directory where converted
+                        annotation file would be dumped
+
+    Returns:
+        class_dict(dict): Labels to Integer mapping hash map
+    """
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
     names_file_path = kwargs["names"]
     class_dict = class_values(names_file_path)

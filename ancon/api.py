@@ -6,7 +6,8 @@ from core import file_lmj_yolo, dir_lmj_yolo
 
 def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
                  names_file=None):
-    """Convert annotation file from one format to another
+    """Converts annotation file from one format to another
+       Raises Value error if fmt provided is not supported
 
     Args:
         src_fmt (str): Source annotation format type
@@ -27,7 +28,8 @@ def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
 
 def convert_folder(src_fmt, tgt_fmt, src_dir,
                    dest_dir, names_file=None):
-    """Convert annotation files in a folder from one format to another
+    """Converts annotation files in a folder from one format to another
+       Raises Value error if fmt provided is not supported
 
     Args:
         src_fmt (str): Source annotation format type

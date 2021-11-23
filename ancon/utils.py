@@ -5,7 +5,7 @@ import json
 
 
 def json_extract(json_path):
-    """Convert JSON file to Python Dict
+    """Converts JSON file to Python Dict
 
     Args:
         json_path (str): Path to JSON file
@@ -19,7 +19,7 @@ def json_extract(json_path):
 
 
 def class_values(names_file):
-    """Get integer value of classes from .names file
+    """Gets integer value of classes from .names file
 
     Args:
         names_file (type): File containing a list of classes.
@@ -40,7 +40,7 @@ def class_values(names_file):
 
 
 def lmj_pascalvoc(matrix):
-    """Extract box coordinates from lmjson labels to pascalvoc
+    """Extracts box coordinates from lmjson labels to pascalvoc
 
     Args:
         label_dict (list of lists): lmjson points matrix
@@ -59,7 +59,7 @@ def lmj_pascalvoc(matrix):
 
 
 def pascalvoc_yolo(img_width, img_height, pascalvoc_box):
-    """Convert a box with arguments to x_min, y_min, x_max, y_max to YOLO
+    """Converts a box with arguments to x_min, y_min, x_max, y_max to YOLO
        The YOLO format is x_center, y_center, width, height (Normalized)
 
     Args:
