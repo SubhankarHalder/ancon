@@ -13,7 +13,8 @@ def lmj_yolo(json_file_path, target_dir, class_dict):
     Args:
         json_file_path (Union[str, PosixPath]): Path to LMJSON file
         target_dir (str): Path to target directory
-        class_dict (dict): Hash Map containing class names to integer mapping
+        class_dict (dict[str: int]): Hash Map containing class names to
+                                     integer mapping
     """
     json_dict = json_extract(json_file_path)
     img_width = json_dict["imageWidth"]
@@ -50,7 +51,7 @@ def preproces_lmj(dest_dir, **kwargs):
     return class_dict
 
 
-def file_lmj_yolo(src_file, dest_dir, **kwargs):
+def file_lmj_yolo(src_file, dest_dir, kwargs_dict):
     """Serves as a wrapper to lmj_yolo function
        for a single annotation file
 
@@ -58,12 +59,14 @@ def file_lmj_yolo(src_file, dest_dir, **kwargs):
         src_file (str): Path to the annotation file
         dest_dir (str): Output folder where converted
                         annotation file would be dumped
+        kwargs_dict (dict): Path to names file for the
+                            keyword 'names'
     """
-    class_dict = preproces_lmj(dest_dir, kwargs)
+    class_dict = preproces_lmj(dest_dir, kwargs_dict)
     lmj_yolo(src_file, dest_dir, class_dict)
 
 
-def dir_lmj_yolo(src_dir, dest_dir, **kwargs):
+def dir_lmj_yolo(src_dir, dest_dir, kwargs_dict):
     """Serves as a wrapper to lmj_yolo function
        for a folder of annotation files
 
@@ -71,9 +74,11 @@ def dir_lmj_yolo(src_dir, dest_dir, **kwargs):
         src_dir (str): Path to folder containing
                        annotation files
         dest_dir (str): Output folder where converted
-                           annotation file would be dumped
+                        annotation file would be dumped
+        kwargs_dict (dict): Path to names file for the
+                            keyword 'names'
     """
-    class_dict = preproces_lmj(dest_dir, kwargs)
+    class_dict = preproces_lmj(dest_dir, kwargs_dict)
     for file in tqdm(list(Path(src_dir).iterdir())):
         if file.suffix == ".json":
             lmj_yolo(file, dest_dir, class_dict)

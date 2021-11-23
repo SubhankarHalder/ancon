@@ -46,7 +46,7 @@ def lmj_pascalvoc(matrix):
         label_dict (list of lists): lmjson points matrix
 
     Returns:
-        list: Box coordinates in Pascalvoc
+        list of floats: Box coordinates in Pascalvoc
               [x_min, y_min, x_max, y_max]
     """
     min_column = [min(column) for column in zip(*matrix)]
