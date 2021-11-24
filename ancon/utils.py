@@ -35,7 +35,7 @@ def class_values(names_file):
         for index, name in f:
             class_dict[name] = index
     if not class_dict:
-        raise ValueError("Names file is empty.")
+        raise Exception("Names file is empty.")
     return class_dict
 
 

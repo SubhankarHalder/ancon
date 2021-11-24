@@ -17,13 +17,13 @@ def convert_file(src_fmt, tgt_fmt, src_file, dest_dir,
         kwargs (str): Names file path. Make a dict,
                       kwargs["names":"path/to/file"] and pass **kwargs
     Raises:
-        ValueError: For src_fmt and tgt_fmt that are not supported
+        Exception: For src_fmt and tgt_fmt that are not supported
     """
     file_dispatcher = {'lmj': {'yolo': file_lmj_yolo}}
     try:
         file_dispatcher[src_fmt][tgt_fmt](src_file, dest_dir, kwargs)
     except KeyError:
-        raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
+        raise Exception(f"{src_fmt} to {tgt_fmt} conversion not supported")
 
 
 def convert_folder(src_fmt, tgt_fmt, src_dir,
@@ -39,10 +39,10 @@ def convert_folder(src_fmt, tgt_fmt, src_dir,
         kwargs (str): Names file path. Make a dict,
                       kwargs["names":"path/to/file"] and pass **kwargs
     Raises:
-        ValueError: For src_fmt and tgt_fmt that are not supported
+        Exception: For src_fmt and tgt_fmt that are not supported
     """
     dir_dispatcher = {'lmj': {'yolo': dir_lmj_yolo}}
     try:
         dir_dispatcher[src_fmt][tgt_fmt](src_dir, dest_dir, kwargs)
     except KeyError:
-        raise ValueError(f"{src_fmt} to {tgt_fmt} conversion not supported")
+        raise Exception(f"{src_fmt} to {tgt_fmt} conversion not supported")

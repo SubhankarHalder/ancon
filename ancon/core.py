@@ -44,9 +44,21 @@ def preproces_lmj(dest_dir, **kwargs):
 
     Returns:
         class_dict(dict): Labels to Integer mapping hash map
+    
+    Raises:
+        Exception: Kwargs passed without "names" keyword
+        Exception: Names file path provided is empty
+        Exception: Names file does not exist
     """
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
-    names_file_path = kwargs["names"]
+    try:
+        names_file_path = kwargs["names"]
+    except KeyError:
+        raise Exception("Pass .names file with 'names' keyword")
+    if not names_file_path:
+        raise Exception("Empty names file path")
+    if not Path(names_file_path).is_file():
+        raise Exception(f"File does not exist: {names_file_path}")
     class_dict = class_values(names_file_path)
     return class_dict
 
